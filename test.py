@@ -1,5 +1,6 @@
-x,y=map(int,input().split())
+n=input().split('+')
 
-result=[0] * x
-print(result)
+n.sort()
+print('+'.join(map(str,n)))
+
   
