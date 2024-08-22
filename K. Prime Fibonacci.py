@@ -1,38 +1,37 @@
-def is_prime(num):
-    if num <= 1:
-        return False
-    if num <= 3:
-        return True
-    if num % 2 == 0 or num % 3 == 0:
-        return False
-    
-    i = 5
-    while i * i <= num:
-        if num % i == 0 or num % (i + 2) == 0:
-            return False
-        i += 6
-    return True
+import math
 
-def cal_fibonacci(n):
-    fibonacci = [0] * (n + 1)
-    fibonacci[1] = 1
+fib = [0] * 51
+fib[1] = 0  
+fib[2] = 1  
 
-    for i in range(2, n + 1):
-        fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2]
-    return fibonacci
+for i in range(3, 51):
+    fib[i] = fib[i - 1] + fib[i - 2]
 
-number_of_tests = int(input())
-test_cases = [int(input()) for _ in range(number_of_tests)]
+prime_status = ["not prime"] * 51
 
-fib_50 = cal_fibonacci(50)
+for i in range(1, 51):
+    num = fib[i]
+    if num > 1: 
+        is_prime = True
+        if num == 2 or num == 3:
+            is_prime = True
+        elif num % 2 == 0 or num % 3 == 0:
+            is_prime = False
+        else:
+            for j in range(5, int(math.sqrt(num)) + 1, 6):
+                if num % j == 0 or num % (j + 2) == 0:
+                    is_prime = False
+                    break
+        if is_prime:
+            prime_status[i] = "prime"
+
+T = int(input())  
 results = []
 
-for test in test_cases:
-    x = fib_50[test]
-    if is_prime(x):
-        results.append("prime")
-    else:
-        results.append("not prime")
-        
+for _ in range(T):
+    N = int(input())
+    results.append(prime_status[N])
+
 print("\n".join(results))
+
 
